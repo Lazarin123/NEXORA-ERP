@@ -1,0 +1,84 @@
+{
+  "name": "nexora-erp-desktop",
+  "version": "1.3.3",
+  "description": "Nexora ERP local-first desktop app — inventário cego com relatório final por produto, lote e ativo",
+  "main": "main.cjs",
+  "private": true,
+  "scripts": {
+    "start": "electron .",
+    "dist:win:installer": "electron-builder --win nsis --x64",
+    "dist:win:portable": "electron-builder --win portable --x64",
+    "dist:linux": "electron-builder --linux AppImage deb --x64"
+  },
+  "devDependencies": {
+    "electron": "^35.2.0",
+    "electron-builder": "^26.0.12"
+  },
+  "build": {
+    "appId": "br.com.nexora.erp",
+    "productName": "Nexora ERP",
+    "asar": true,
+    "compression": "maximum",
+    "directories": {
+      "output": "dist",
+      "buildResources": "assets"
+    },
+    "files": [
+      "main.cjs",
+      "index.html",
+      "assets/nexora.png",
+      "package.json"
+    ],
+    "npmRebuild": false,
+    "win": {
+      "icon": "assets/nexora.ico",
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "portable",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "artifactName": "Nexora-ERP-1.3.3-Setup.${ext}"
+    },
+    "portable": {
+      "artifactName": "Nexora-ERP-1.3.3-portable.${ext}"
+    },
+    "linux": {
+      "icon": "assets/nexora.png",
+      "target": [
+        {
+          "target": "AppImage",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "deb",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "category": "Office",
+      "maintainer": "Nexora ERP",
+      "artifactName": "Nexora-ERP-1.3.3-${target}.${ext}"
+    },
+    "deb": {
+      "depends": []
+    }
+  }
+}
